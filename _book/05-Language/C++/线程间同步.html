@@ -1,0 +1,881 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-cn" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>线程间同步 · Handbook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="cc">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc/page-toc.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="树.md" />
+    
+    
+    <link rel="prev" href="线程间通信.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../01-OS/">
+            
+                <a href="../../01-OS/">
+            
+                    
+                    OS
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../../02-Network/">
+            
+                <a href="../../02-Network/">
+            
+                    
+                    Network
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../../02-Network/namespace.html">
+            
+                <a href="../../02-Network/namespace.html">
+            
+                    
+                    namespace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../../02-Network/tun-tap.html">
+            
+                <a href="../../02-Network/tun-tap.html">
+            
+                    
+                    tun/tap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../../02-Network/route.html">
+            
+                <a href="../../02-Network/route.html">
+            
+                    
+                    route
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../../02-Network/centos网卡配置文件.html">
+            
+                <a href="../../02-Network/centos网卡配置文件.html">
+            
+                    
+                    网卡配置文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../../03-Databases/">
+            
+                <a href="../../03-Databases/">
+            
+                    
+                    Database
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../../03-Databases/redis.md">
+            
+                <span>
+            
+                    
+                    redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../../03-Databases/memcache.md">
+            
+                <span>
+            
+                    
+                    memcache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.3" data-path="../../03-Databases/etcd.md">
+            
+                <span>
+            
+                    
+                    etcd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../04-Application/">
+            
+                <a href="../../04-Application/">
+            
+                    
+                    Application
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../../04-Application/front-end/">
+            
+                <a href="../../04-Application/front-end/">
+            
+                    
+                    front-end
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../../04-Application/back-end/">
+            
+                <a href="../../04-Application/back-end/">
+            
+                    
+                    back-end
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.2.1" data-path="../../04-Application/back-end/micoservice/">
+            
+                <a href="../../04-Application/back-end/micoservice/">
+            
+                    
+                    micoservice
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.2.1.1" data-path="../../04-Application/back-end/micoservice/服务发现.md">
+            
+                <span>
+            
+                    
+                    服务发现
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../05-language/">
+            
+                <a href="../../05-language/">
+            
+                    
+                    Language
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1" data-path="../../05-language/go/">
+            
+                <a href="../../05-language/go/">
+            
+                    
+                    Golang
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.1.1" data-path="../../05-language/go/gRpc.html">
+            
+                <a href="../../05-language/go/gRpc.html">
+            
+                    
+                    gRPC
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.1.2" data-path="../../05-language/go/reflect.html">
+            
+                <a href="../../05-language/go/reflect.html">
+            
+                    
+                    reflect
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.1.3" data-path="../../05-language/go/runtime.html">
+            
+                <a href="../../05-language/go/runtime.html">
+            
+                    
+                    runtime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.1.4" data-path="../../05-language/go/tcp.html">
+            
+                <a href="../../05-language/go/tcp.html">
+            
+                    
+                    tcp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.1.5" data-path="../../05-language/go/websocket.html">
+            
+                <a href="../../05-language/go/websocket.html">
+            
+                    
+                    websocket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.1.6" data-path="../../05-language/go/sync.Map.html">
+            
+                <a href="../../05-language/go/sync.Map.html">
+            
+                    
+                    sync.Map
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    C++
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.1.2.1" data-path="templete.html">
+            
+                <a href="templete.html">
+            
+                    
+                    templete
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2.2" data-path="STL.html">
+            
+                <a href="STL.html">
+            
+                    
+                    STL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2.3" data-path="智能指针.html">
+            
+                <a href="智能指针.html">
+            
+                    
+                    智能指针
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2.4" data-path="线程间通信.html">
+            
+                <a href="线程间通信.html">
+            
+                    
+                    线程间通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.1.2.5" data-path="线程间同步.html">
+            
+                <a href="线程间同步.html">
+            
+                    
+                    线程间同步
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2.6" data-path="树.md">
+            
+                <span>
+            
+                    
+                    树
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.2.7" data-path="Lamda表达式.html">
+            
+                <a href="Lamda表达式.html">
+            
+                    
+                    Lamda表达式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6.1.3" data-path="../vue/">
+            
+                <a href="../vue/">
+            
+                    
+                    Vue
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../../06-Devops/">
+            
+                <a href="../../06-Devops/">
+            
+                    
+                    Devops
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../../06-Devops/kubernetes/">
+            
+                <a href="../../06-Devops/kubernetes/">
+            
+                    
+                    kubernetes
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1.1" data-path="../../06-Devops/kubernetes/csi.html">
+            
+                <a href="../../06-Devops/kubernetes/csi.html">
+            
+                    
+                    csi
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >线程间同步</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h5 id="&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x540C;&#x6B65;&#xFF1A;">&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x540C;&#x6B65;&#xFF1A;</h5>
+<ol>
+<li><p>&#x4E92;&#x65A5;&#x9501;</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_mutex_init</span><span class="hljs-params">(pthread_mutex_t *mutex, <span class="hljs-keyword">const</span> pthread_mutexattr_t *mutexattr)</span></span>;<span class="hljs-comment">//&#x4E92;&#x65A5;&#x521D;&#x59CB;&#x5316;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_mutex_destroy</span><span class="hljs-params">(pthread_mutex_t *mutex)</span></span>;<span class="hljs-comment">//&#x9500;&#x6BC1;&#x4E92;&#x65A5;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_mutex_lock</span><span class="hljs-params">(pthread_mutex_t *mutex)</span></span>;<span class="hljs-comment">//&#x9501;&#x5B9A;&#x4E92;&#x65A5;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_mutex_unlock</span><span class="hljs-params">(pthread_mutex_t *mutex)</span></span>;<span class="hljs-comment">//&#x89E3;&#x9501;&#x4E92;&#x65A5;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_mutex_trylock</span><span class="hljs-params">(pthread_mutex_t *mutex)</span></span>;<span class="hljs-comment">//&#x9500;&#x6BC1;&#x4E92;&#x65A5;</span>
+eg.<span class="hljs-keyword">pthread_t</span> mutex;
+pthread_mutex_init(&amp;mutex, <span class="hljs-literal">NULL</span>);
+pthread_mutex_lock(&amp;mutex);
+...
+pthread_mutex_unlock(&amp;mutex);
+pthread_mutex_detroy(&amp;mutex);
+</code></pre>
+</li>
+<li><p>&#x8BFB;&#x5199;&#x9501;</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_rwlock_init</span><span class="hljs-params">(pthread_rwlock_t *rwlock, <span class="hljs-keyword">const</span> pthread_rwlockattr_t *rwlockattr)</span></span>;<span class="hljs-comment">//&#x521D;&#x59CB;&#x5316;&#x8BFB;&#x5199;&#x9501;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_rwlock_destroy</span><span class="hljs-params">(pthread_rwlock_t *rwlock)</span></span>;<span class="hljs-comment">//&#x9500;&#x6BC1;&#x8BFB;&#x5199;&#x9501;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_rwlock_rdlock</span><span class="hljs-params">(pthread_rwlock_t *rwlock)</span></span>;<span class="hljs-comment">//&#x8BFB;&#x6A21;&#x5F0F;&#x9501;&#x5B9A;&#x8BFB;&#x5199;&#x9501;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_rwlock_wrlock</span><span class="hljs-params">(pthread_rwlock_t *rwlock)</span></span>;<span class="hljs-comment">//&#x5199;&#x6A21;&#x5F0F;&#x9501;&#x5B9A;&#x8BFB;&#x5199;&#x9501;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_rwlock_unlock</span><span class="hljs-params">(pthread_rwlock_t *rwlock)</span></span>;<span class="hljs-comment">//&#x89E3;&#x9501;&#x8BFB;&#x5199;&#x9501;</span>
+eg.<span class="hljs-keyword">pthread_rwlock_t</span> q_lock;
+pthread_rwlock_init(&amp;q_lock, <span class="hljs-literal">NULL</span>);
+pthread_rwlock_rdlock(&amp;q_lock);
+...
+pthread_rwlock_unlock(&amp;q_lock);
+pthread_rwlock_detroy(&amp;q_lock);
+</code></pre>
+</li>
+<li><p>&#x4FE1;&#x53F7;&#x91CF;</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;semaphore.h&gt;</span></span>
+
+<span class="hljs-keyword">sem_t</span> sem_event;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sem_init</span><span class="hljs-params">(sem_t *sem, <span class="hljs-keyword">int</span> pshared, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> value)</span></span>;<span class="hljs-comment">//&#x521D;&#x59CB;&#x5316;&#x4E00;&#x4E2A;&#x4FE1;&#x53F7;&#x91CF; </span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sem_destroy</span><span class="hljs-params">(sem_t * sem)</span></span>;<span class="hljs-comment">//&#x9500;&#x6BC1;&#x4FE1;&#x53F7;&#x91CF;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sem_post</span><span class="hljs-params">(sem_t * sem)</span></span>;<span class="hljs-comment">//&#x4FE1;&#x53F7;&#x91CF;&#x589E;&#x52A0;1</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sem_wait</span><span class="hljs-params">(sem_t * sem)</span></span>;<span class="hljs-comment">//&#x4FE1;&#x53F7;&#x91CF;&#x51CF;&#x5C11;1</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sem_getvalue</span><span class="hljs-params">(sem_t * sem, <span class="hljs-keyword">int</span> * sval)</span></span>;<span class="hljs-comment">//&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x4FE1;&#x53F7;&#x91CF;&#x7684;&#x503C;</span>
+</code></pre>
+</li>
+<li><p>&#x6761;&#x4EF6;&#x53D8;&#x91CF;</p>
+<pre><code class="lang-cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_cond_init</span><span class="hljs-params">(pthread_cond_t *cond, <span class="hljs-keyword">const</span> pthread_condattr_t *attr)</span></span>;<span class="hljs-comment">//&#x521D;&#x59CB;&#x5316;&#x6761;&#x4EF6;&#x53D8;&#x91CF;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_cond_destroy</span><span class="hljs-params">(pthread_cond_t *cond)</span></span>;<span class="hljs-comment">//&#x9500;&#x6BC1;&#x6761;&#x4EF6;&#x53D8;&#x91CF;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_cond_wait</span><span class="hljs-params">(pthread_cond_t *cond, pthread_mutex_t *mutex)</span></span>;<span class="hljs-comment">//&#x65E0;&#x6761;&#x4EF6;&#x7B49;&#x5F85;&#x6761;&#x4EF6;&#x53D8;&#x91CF;&#x53D8;&#x4E3A;&#x771F;</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">pthread_cond_timewait</span><span class="hljs-params">(pthread_cond_t *cond, pthread_mutex_t *mutex, <span class="hljs-keyword">const</span> <span class="hljs-keyword">struct</span> timespec *tsptr)</span></span>;<span class="hljs-comment">//&#x5728;&#x7ED9;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#xFF0C;&#x7B49;&#x5F85;&#x6761;&#x4EF6;&#x53D8;&#x91CF;&#x53D8;&#x4E3A;&#x771F;</span>
+eg.<span class="hljs-keyword">pthread_mutex_t</span> mutex;
+<span class="hljs-keyword">pthread_cond_t</span> cond;
+...
+pthread_mutex_lock(&amp;mutex);
+pthread_cond_wait(&amp;cond, &amp;mutex);
+...
+pthread_mutex_unlock(&amp;mutex);
+</code></pre>
+</li>
+<li><p>&#x81EA;&#x65CB;&#x9501;</p>
+<p>&#x5904;&#x4E8E;&#x5FD9;&#x7B49;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x4E0D;&#x60F3;&#x7EBF;&#x7A0B;&#x5207;&#x6362;&#xFF0C;&#x5360;&#x7528;&#x9501;&#x7684;&#x65F6;&#x95F4;&#x77ED;</p>
+</li>
+</ol>
+<footer class="page-footer"><span class="copyright">&#xA9; cc all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at
+2020-09-21 21:21:27
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="线程间通信.html" class="navigation navigation-prev " aria-label="Previous page: 线程间通信">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="树.md" class="navigation navigation-next " aria-label="Next page: 树">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"线程间同步","level":"6.1.2.5","depth":3,"next":{"title":"树","level":"6.1.2.6","depth":3,"path":"05-Language/C++/树.md","ref":"05-Language/C++/树.md","articles":[]},"previous":{"title":"线程间通信","level":"6.1.2.4","depth":3,"path":"05-Language/C++/线程间通信.md","ref":"05-Language/C++/线程间通信.md","articles":[]},"dir":"ltr"},"config":{"plugins":["mermaid","github","editlink","page-toc","-lunr","-search","search-plus","tbfed-pagefooter","toggle-chapters","livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy cc","modify_label":"Updated at","modify_format":"YYYY-MM-DD HH:mm:ss"},"github":{"url":"https://github.com/wmdboke"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/wmdboke"},"livereload":{},"mermaid":{},"page-toc":{"position":"before-first","selector":".markdown-section h1, .markdown-section h2, .markdown-section h3","showByDefault":true},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"toggle-chapters":{},"search-plus":{}},"theme":"default","author":"cc","pdf":{"pageNumbers":true,"fontSize":11,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"toc":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Handbook","language":"zh-cn","gitbook":">= 3.2.2"},"file":{"path":"05-Language/C++/线程间同步.md","mtime":"2020-09-21T13:21:27.980Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-01T01:22:18.001Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc/anchor-3.1.1.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc/page-toc.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
